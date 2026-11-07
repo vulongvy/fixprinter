@@ -1,0 +1,7 @@
+# Release template - DAY_LEN_GITHUB.bat replaces __VERSION__ on every release.
+# Target folder in winget-pkgs: manifests/v/vulongvy/FixPrinter/__VERSION__/
+PackageIdentifier: vulongvy.FixPrinter
+PackageVersion: __VERSION__
+DefaultLocale: en-US
+ManifestType: version
+ManifestVersion: 1.12.0

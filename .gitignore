@@ -1,0 +1,5 @@
+dist/
+hash.txt
+phat_hanh_log.txt
+src/backup/
+src/*.txt

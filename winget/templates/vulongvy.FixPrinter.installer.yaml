@@ -1,0 +1,16 @@
+# Release template - DAY_LEN_GITHUB.bat replaces __VERSION__ and __SHA256__.
+PackageIdentifier: vulongvy.FixPrinter
+PackageVersion: __VERSION__
+InstallerType: inno
+Scope: machine
+InstallModes:
+- interactive
+- silent
+- silentWithProgress
+UpgradeBehavior: install
+Installers:
+- Architecture: neutral
+  InstallerUrl: https://github.com/vulongvy/FixPrinter/releases/download/v__VERSION__/FixPrinter-Setup-__VERSION__.exe
+  InstallerSha256: __SHA256__
+ManifestType: installer
+ManifestVersion: 1.12.0

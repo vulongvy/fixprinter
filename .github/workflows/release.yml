@@ -1,0 +1,57 @@
+name: Release
+
+# Push a tag like v13.5.0 -> builds the Inno installer on a Windows runner,
+# creates the GitHub Release and uploads the installer as a release asset.
+# If the WINGET_TOKEN secret exists (classic PAT, scope: repo), it also runs
+# wingetcreate update --submit to open the version-update PR on winget-pkgs.
+# NOTE: the very first winget submission must be done manually once
+# (see HUONG_DAN_PHAT_HANH.md); wingetcreate update only works afterwards.
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+permissions:
+  contents: write
+
+jobs:
+  build-release:
+    runs-on: windows-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install Inno Setup
+        run: choco install innosetup -y --no-progress
+
+      - name: Build installer
+        shell: pwsh
+        run: |
+          $ver = $env:GITHUB_REF_NAME -replace '^v', ''
+          & "C:\Program Files (x86)\Inno Setup 6\ISCC.exe" "/DAppVersion=$ver" "FixPrinter.iss"
+          if ($LASTEXITCODE -ne 0) { throw "ISCC failed: $LASTEXITCODE" }
+          Get-ChildItem dist
+
+      - name: Create GitHub Release
+        shell: pwsh
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          $ver = $env:GITHUB_REF_NAME -replace '^v', ''
+          gh release create $env:GITHUB_REF_NAME "dist/FixPrinter-Setup-$ver.exe" --title "FixPrinter $env:GITHUB_REF_NAME" --generate-notes
+
+      - name: Submit winget update (optional)
+        shell: pwsh
+        continue-on-error: true
+        env:
+          WINGET_CREATE_GITHUB_TOKEN: ${{ secrets.WINGET_TOKEN }}
+        run: |
+          if (-not $env:WINGET_CREATE_GITHUB_TOKEN) {
+            Write-Host 'No WINGET_TOKEN secret - skipping winget submission.'
+            exit 0
+          }
+          $ver = $env:GITHUB_REF_NAME -replace '^v', ''
+          $url = "https://github.com/$env:GITHUB_REPOSITORY/releases/download/$env:GITHUB_REF_NAME/FixPrinter-Setup-$ver.exe"
+          Invoke-WebRequest 'https://github.com/microsoft/winget-create/releases/latest/download/wingetcreate.exe' -OutFile wingetcreate.exe
+          .\wingetcreate.exe update vulongvy.FixPrinter --urls $url --version $ver --submit

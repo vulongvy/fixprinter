@@ -1,0 +1,18 @@
+PackageIdentifier: vulongvy.FixPrinter
+PackageVersion: __VERSION__
+PackageLocale: vi-VN
+Publisher: vulongvy
+PublisherUrl: https://github.com/vulongvy
+PackageName: FixPrinter
+PackageUrl: https://github.com/vulongvy/FixPrinter
+License: MIT
+LicenseUrl: https://github.com/vulongvy/FixPrinter/blob/main/LICENSE
+ShortDescription: Sua loi may in va in mang LAN tren Windows bang 1 cu bam - Spooler, chia se SMB, cac ma loi 0x11b, 0x7c, 709, 0x80070035.
+Tags:
+- printer
+- spooler
+- lan
+- network
+- repair
+ManifestType: locale
+ManifestVersion: 1.12.0
