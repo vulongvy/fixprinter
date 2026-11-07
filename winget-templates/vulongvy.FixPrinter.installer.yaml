@@ -1,3 +1,4 @@
+# yaml-language-server: $schema=https://aka.ms/winget-manifest.installer.1.12.0.schema.json
 # Release template - DAY_LEN_GITHUB.bat replaces __VERSION__ and __SHA256__.
 PackageIdentifier: vulongvy.FixPrinter
 PackageVersion: __VERSION__

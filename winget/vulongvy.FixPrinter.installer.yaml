@@ -1,4 +1,5 @@
-﻿# Release template - DAY_LEN_GITHUB.bat replaces 13.4.0 and 981753C80E6392AD41200389A25DF6B293CBA61AECB5CF81F134933940687B56.
+﻿# yaml-language-server: $schema=https://aka.ms/winget-manifest.installer.1.12.0.schema.json
+# Release template - DAY_LEN_GITHUB.bat replaces 13.4.0 and 981753C80E6392AD41200389A25DF6B293CBA61AECB5CF81F134933940687B56.
 PackageIdentifier: vulongvy.FixPrinter
 PackageVersion: 13.4.0
 InstallerType: inno
