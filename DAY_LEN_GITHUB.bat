@@ -175,7 +175,7 @@ echo   SHA256 : %HASH%
 echo ============================================================
 echo   NOP WINGET (lan dau tien lam tay 1 lan - xem HUONG_DAN_PHAT_HANH.md):
 echo   Cach nhanh: winget install wingetcreate, roi chay:
-echo     wingetcreate new https://github.com/%REPO%/releases/download/v%VER%/FixPrinter-Setup-%VER%.exe --submit --token ^<PAT^>
+echo     wingetcreate new https://github.com/%REPO%/releases/download/v%VER%/FixPrinter-Setup-%VER%.exe --token ^<PAT^>
 echo   Cac ban sau: chi sua VERSION.txt + version trong src\FixPrinter.ps1,
 echo   chay lai file .bat nay, roi wingetcreate update tu dong lo phan con lai.
 echo ============================================================

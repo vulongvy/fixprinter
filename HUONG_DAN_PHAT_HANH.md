@@ -20,13 +20,20 @@ nói rõ chết ở đâu. Muốn đổi tài khoản/repo: sửa biến `REPO` 
 
 winget (microsoft/winget-pkgs) chỉ chứa manifest, không chứa file cài — file
 cài nằm ở GitHub Release của mình, manifest trỏ link + SHA-256 về đó. Lần đầu
-nộp package mới có 2 cách:
+nộp package mới có 3 cách:
+
+**Cách 0 — `NOP_WINGET.bat` (KHUYÊN DÙNG, 1 lần bấm):** dùng sẵn đăng nhập
+`gh` đã có trên máy — tự fork winget-pkgs, render manifest từ
+`winget-templates\` bằng đúng SHA-256 của file cài trên Release, tự
+`winget validate`, đẩy 4 file lên nhánh riêng trên fork và mở PR.
+**Không cần PAT, không phải trả lời câu hỏi.** Kẹt bước nào xem
+`nop_winget_log.txt`.
 
 **Cách A — wingetcreate (nhanh):**
 
 ```powershell
 winget install wingetcreate
-wingetcreate new https://github.com/vulongvy/FixPrinter/releases/download/v13.4.0/FixPrinter-Setup-13.4.0.exe --submit --token <PAT>
+wingetcreate new https://github.com/vulongvy/FixPrinter/releases/download/v13.4.0/FixPrinter-Setup-13.4.0.exe --token <PAT>
 ```
 
 PAT: GitHub → Settings → Developer settings → Personal access tokens (classic)
@@ -43,7 +50,7 @@ winget validate --manifest winget
 ```
 
 **Các lần sau** (đã có package): chỉ cần
-`wingetcreate update vulongvy.FixPrinter --urls <link file cài bản mới> --version <bản mới> --submit --token <PAT>`
+`wingetcreate update vulongvy.FixPrinter --urls <link file cài bản mới> --version <bản mới> --token <PAT>`
 — tool tự tính lại hash và mở PR. Hoặc dùng đường CI ở dưới.
 
 ## Rủi ro kiểm duyệt winget — biết trước để khỏi bất ngờ
@@ -71,7 +78,7 @@ winget validate --manifest winget
 **Đường CI (tự động hẳn):** vào repo → Settings → Secrets → Actions → tạo
 secret `WINGET_TOKEN` (PAT classic scope `repo`). Từ đó mỗi lần
 `git tag v<bản mới>` + `git push origin v<bản mới>`, GitHub Actions tự build
-bộ cài, tạo Release và chạy luôn `wingetcreate update --submit`.
+bộ cài, tạo Release và chạy luôn `wingetcreate update`.
 Workflow nằm ở `.github/workflows/release.yml`.
 
 ## Cấu trúc bộ phát hành

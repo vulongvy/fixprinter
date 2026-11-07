@@ -3,7 +3,7 @@ name: Release
 # Push a tag like v13.5.0 -> builds the Inno installer on a Windows runner,
 # creates the GitHub Release (or refreshes its asset if it already exists)
 # and uploads the installer. If the WINGET_TOKEN secret exists (classic PAT,
-# scope: repo), it also runs wingetcreate update --submit to open the
+# scope: repo), it also runs wingetcreate update to open the
 # version-update PR on winget-pkgs.
 # NOTE: the very first winget submission must be done manually once
 # (see HUONG_DAN_PHAT_HANH.md); wingetcreate update only works afterwards.
@@ -79,4 +79,4 @@ jobs:
           $ver = $env:GITHUB_REF_NAME -replace '^v', ''
           $url = "https://github.com/$env:GITHUB_REPOSITORY/releases/download/$env:GITHUB_REF_NAME/FixPrinter-Setup-$ver.exe"
           Invoke-WebRequest 'https://github.com/microsoft/winget-create/releases/latest/download/wingetcreate.exe' -OutFile wingetcreate.exe
-          .\wingetcreate.exe update vulongvy.FixPrinter --urls $url --version $ver --submit
+          .\wingetcreate.exe update vulongvy.FixPrinter --urls $url --version $ver
