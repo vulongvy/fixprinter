@@ -82,6 +82,6 @@ Workflow nằm ở `.github/workflows/release.yml`.
 | `FixPrinter.iss` | Script Inno Setup đóng bộ cài |
 | `VERSION.txt` | Nguồn sự thật về phiên bản khi build local |
 | `DAY_LEN_GITHUB.bat` | 1-click: build + push + release |
-| `winget\templates\` | Mẫu manifest, chứa `__VERSION__` / `__SHA256__` |
+| `winget-templates\` | Mẫu manifest, chứa `__VERSION__` / `__SHA256__` |
 | `winget\` | Manifest đã sinh cho bản hiện tại (để nộp winget-pkgs) |
 | `.github\workflows\release.yml` | CI: tag → build → release → winget |

@@ -83,7 +83,12 @@ if "%HASH%"=="" goto :fail_hash
 echo [OK] SHA-256: %HASH%
 echo [%date% %time%] SHA256: %HASH% >> "%LOG%"
 if not exist "%~dp0winget" mkdir "%~dp0winget"
-powershell -NoProfile -Command "$v='%VER%'; $h='%HASH%'; Get-ChildItem '%~dp0winget\templates\*.yaml' | ForEach-Object { ((Get-Content $_.FullName -Raw) -replace '__VERSION__', $v -replace '__SHA256__', $h) | Set-Content (Join-Path '%~dp0winget' $_.Name) -Encoding UTF8 }"
+if not exist "%~dp0winget\templates" goto :tpl_ok
+if exist "%~dp0winget-templates" goto :tpl_ok
+move "%~dp0winget\templates" "%~dp0winget-templates" >nul 2>&1
+echo [OK] Da dua thu muc templates ra khoi winget\ (de winget validate khong bi nhiu)
+:tpl_ok
+powershell -NoProfile -Command "$v='%VER%'; $h='%HASH%'; Get-ChildItem '%~dp0winget-templates\*.yaml' | ForEach-Object { ((Get-Content $_.FullName -Raw) -replace '__VERSION__', $v -replace '__SHA256__', $h) | Set-Content (Join-Path '%~dp0winget' $_.Name) -Encoding UTF8 }"
 if %errorlevel% neq 0 goto :fail_render
 echo [OK] Da sinh manifest winget vao thu muc winget\
 

@@ -1,5 +1,7 @@
 dist/
 hash.txt
+status.txt
+iscc_path.txt
 phat_hanh_log.txt
 src/backup/
 src/*.txt

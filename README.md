@@ -55,7 +55,7 @@ FDResPub / SSDPSRV / upnphost, và rule firewall có sẵn của Windows.
 - `.github/workflows/release.yml` — đẩy tag `v*` lên là CI tự build bộ cài và
   tạo Release.
 - `winget/` — manifest winget của package `vulongvy.FixPrinter` (sinh từ
-  `winget/templates/` mỗi lần phát hành).
+  `winget-templates/` mỗi lần phát hành).
 
 ## Giấy phép
 
